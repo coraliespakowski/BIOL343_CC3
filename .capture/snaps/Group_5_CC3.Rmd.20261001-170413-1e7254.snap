@@ -92,16 +92,24 @@ str(data3)
 The columns from Question 1 contain words where numbers are expected. Use `mutate()` (Chapter 10, *mutate() Columns*) with `as.numeric()` to convert them; R replaces anything it cannot read as a number with `NA` (the warning `NAs introduced by coercion` is expected here). Then count the missing values in each converted column with `sum(is.na())` (Chapter 10, *is.na()*).
 
 ```{r fix-missing}
-# change ID to chr
-data1 <- mutate(data1, ID = as.character(ID))
-data2 <- mutate(data2, ID = as.character(ID))
-data3 <- mutate(data3, ID = as.character(ID))
 
 # data2 <-
-data2 <- mutate(data2, PC1 = as.numeric(PC1), PC2 = as.numeric(PC2))
+data2 <- data2 %>%
+  mutate(
+    PC1 = ifelse(PC1 %in% c("Missing", ".", "NA"), NA, PC1),
+    PC2 = ifelse(PC2 %in% c("Missing", ".", "NA"), NA, PC2),
+    PC1 = as.numeric(PC1),
+    PC2 = as.numeric(PC2)
+  )
 
 # data3 <-
-data3 <- mutate(data3, PC1 = as.numeric(PC1), PC2 = as.numeric(PC2))
+data3 <- data3 %>%
+  mutate(
+    PC1 = ifelse(PC1 %in% c("Missing", ".", "NA"), NA, PC1),
+    PC2 = ifelse(PC2 %in% c("Missing", ".", "NA"), NA, PC2),
+    PC1 = as.numeric(PC1),
+    PC2 = as.numeric(PC2)
+  )
 
 # count the NAs
 sum(is.na(data2$PC1))
@@ -126,7 +134,7 @@ names(data3)
 
 **Question 2:** What would have happened to these column names if you had joined `data2` and `data3` without renaming? (Try it in the Console if you are not sure.)
 
-**Answer:** It would have created columns PC1.x, PC2.x, PC1.y, and PC2.y to separate which PC1 and PC2 values correspond to which original tibble. The names are not as specific as when renaming them myself.
+**Answer:**
 
 ## 6. Make sure `Date` is a date
 
@@ -148,10 +156,10 @@ Combine the three objects into one called `all_data` with `full_join()` (Chapter
 
 ```{r full-join}
 # data12 <-
-data12 <- full_join(data1, data2, by = c("ID", "Date"))
+data12 <- full_join(data1, data2, )
 
 # all_data <-
-all_data <- full_join(data12, data3, by = c("ID", "Date"))
+all_data <- 
 ```
 
 ## 8. Compare the join verbs
@@ -161,21 +169,18 @@ Using only `data1` and `data2`, report the number of rows returned by `inner_joi
 ```{r compare-joins}
 
 # inner
-nrow(inner_join(data1, data2, by = c("ID", "Date")))
 
 # left
-nrow(left_join(data1, data2, by = c("ID", "Date")))
 
 # right
-nrow(right_join(data1, data2, by = c("ID", "Date")))
 
 # full
-nrow(full_join(data1, data2, by = c("ID", "Date")))
+
 ```
 
 **Question 3:** The four numbers differ. Explain which rows each verb keeps, and what that tells you about samples that are in one file but not the other.
 
-**Answer:** Inner keeps rows where ID and Date are the same in data1 and data2. Left keeps data1 rows AND rows from data2 where ID and Date are the same in data1 and data2. Left keeps data2 rows AND rows from data1 where ID and Date are the same in data1 and data2. Full keeps all rows.
+**Answer:**
 
 # Part 3 — Dates, summaries and ordering
 
@@ -185,8 +190,6 @@ Add a `Year` column and a `Month` column to `all_data` with `mutate()` and the `
 
 ```{r add-year}
 
-# adding Year and Month column
-all_data <- mutate(all_data, Year = year(Date), Month = month(Date))
 ```
 
 ## 10. Summarise concentration by year
@@ -194,12 +197,9 @@ all_data <- mutate(all_data, Year = year(Date), Month = month(Date))
 Use `group_by()` and `summarise()` (Chapter 10, *summarise() + group_by()*) to calculate the mean and standard deviation of `Conc` for each `Year`. Remember `na.rm = TRUE` (Chapter 10, *NA and na.rm()*). Save the result as `year_summary` and print it.
 
 ```{r year-summary}
-# group_by
-YearGroup <- group_by(all_data, Conc, Year)
-
 
 # year_summary <-
-year_summary <- summarise(all_data)
+
 ```
 
 **Question 4:** Does concentration differ between the two years? Answer in one or two sentences from the table.
