@@ -57,20 +57,13 @@ Import each file and save them as `data1`, `data2` and `data3` (Chapter 10, *tib
 ```{r import-data}
 
 # data1 <-
-data1 <- read_csv(
-  "/Users/coraliespakowski/Desktop/BIOL 343/BIOL343_CC3/Data/Dataset1.csv"
-)
+data1 <- read.csv("/Users/coraliespakowski/Desktop/BIOL 343/BIOL343_CC3/Data/Dataset1.csv")
 
 # data2 <-
-data2 <- read_csv(
-  "/Users/coraliespakowski/Desktop/BIOL 343/BIOL343_CC3/Data/Dataset2.csv"
-)
+data2 <- read.csv("/Users/coraliespakowski/Desktop/BIOL 343/BIOL343_CC3/Data/Dataset2.csv")
 
 # data3 <-
-data3 <- read_delim(
-  "/Users/coraliespakowski/Desktop/BIOL 343/BIOL343_CC3/Data/Dataset3.csv",
-  delim = ";"
-)
+data3 <- read.csv("/Users/coraliespakowski/Desktop/BIOL 343/BIOL343_CC3/Data/Dataset3.csv")
 ```
 
 ## 3. Inspect the data
@@ -85,7 +78,9 @@ str(data3)
 
 **Question 1:** Which columns did R import as a type you did not expect, and what in the raw files caused it? (Look at the values in those columns.)
 
-**Answer:** PC1 and PC2 imported as chr which was unexpected. This is because they contain missing values written "Missing" in data2 and "N/A" in data3.
+PC1 and PC2 imported as chr which was unexpected. This is because they contain missing values written "Missing."
+
+**Answer:**
 
 ## 4. Fix the missing values
 
@@ -98,8 +93,7 @@ The columns from Question 1 contain words where numbers are expected. Use `mutat
 # data3 <-
 
 # count the NAs
-sum(is.na(data2$Total))
-sum(is.na(data3$Total))
+
 ```
 
 ## 5. Rename the measurement columns
@@ -107,8 +101,7 @@ sum(is.na(data3$Total))
 `data2` and `data3` both have columns called `PC1` and `PC2`. Use `rename()` (Chapter 10, *rename() Columns*) to give them names that say where they came from, for example `micro_PC1`/`micro_PC2` and `urine_PC1`/`urine_PC2` (hospital) or `invert_PC1`/`invert_PC2` and `chem_PC1`/`chem_PC2` (lakes). Check the result with `names()`.
 
 ```{r rename-columns}
-# invert for 2 ?
-# chem for 3 ?
+
 ```
 
 **Question 2:** What would have happened to these column names if you had joined `data2` and `data3` without renaming? (Try it in the Console if you are not sure.)
