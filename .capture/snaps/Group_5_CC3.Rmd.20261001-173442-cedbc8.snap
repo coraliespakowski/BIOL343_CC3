@@ -147,13 +147,11 @@ class(data3$Date)
 Combine the three objects into one called `all_data` with `full_join()` (Chapter 10, *Join Datasets*), matching rows that have the same `ID` **and** the same `Date`: `by = c("ID", "Date")`. Two joins are needed. Check the dimensions.
 
 ```{r full-join}
+# data12 <-
+data12 <- full_join(data1, data2, by = c("ID", "Date"))
 
 # all_data <-
-all_data <- data1 |>
-  full_join(data2, by = c("ID", "Date")) |>
-  full_join(data3, by = c("ID", "Date"))
-
-dim(all_data)
+all_data <- full_join(data12, data3, by = c("ID", "Date"))
 ```
 
 ## 8. Compare the join verbs
@@ -189,7 +187,7 @@ Add a `Year` column and a `Month` column to `all_data` with `mutate()` and the `
 
 # adding Year and Month column
 all_data <- mutate(
-  all_data,
+  data3,
   Year = as.factor(year(Date)),
   Month = as.factor(month(Date))
 )
@@ -202,24 +200,19 @@ Use `group_by()` and `summarise()` (Chapter 10, *summarise() + group_by()*) to c
 ```{r year-summary}
 
 # year_summary <-
-year_summary <- all_data |>
-  group_by(Year) |>
-  summarise(Mean = mean(Conc, na.rm = T))
+year_summary <- summarise(all_data, na.rm = T)
 ```
 
 **Question 4:** Does concentration differ between the two years? Answer in one or two sentences from the table.
 
-**Answer:** Concentration is 10.224 in 2021 and falls drastically in the next year to a concentration of about 0.964.
+**Answer:**
 
 ## 11. The five highest concentrations
 
 Use `arrange()` with `desc()` (Chapter 10, *arrange() Rows*) and `select()` (Chapter 10, *select() Columns*) to show the five samples with the highest `Conc`, with only the `ID`, `Year` and `Conc` columns. Pipe the steps together with `%>%` (Chapter 10, *%>%*).
 
 ```{r top-five}
-all_data %>%
-  arrange(desc(Conc)) %>%
-  slice_head(n = 5) %>%
-  select(ID, Year, Conc)
+
 ```
 
 # Part 4 — Reshape
@@ -231,8 +224,7 @@ Starting from `all_data`, the four measurement columns you renamed in Section 5 
 ```{r pivot-longer}
 
 # long_data <-
-long_data <- all_data |>
-  pivot_longer()
+
 ```
 
 Now use `long_data` to draw histograms of `Score` with `facet_wrap()` so that each `Measure` gets its own panel (Chapter 4 and Chapter 7). Choose a sensible `binwidth`, add axis labels and a title, and use `theme_classic()`.

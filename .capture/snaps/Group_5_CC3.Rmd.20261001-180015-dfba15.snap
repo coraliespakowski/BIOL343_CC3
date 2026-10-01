@@ -216,10 +216,7 @@ year_summary <- all_data |>
 Use `arrange()` with `desc()` (Chapter 10, *arrange() Rows*) and `select()` (Chapter 10, *select() Columns*) to show the five samples with the highest `Conc`, with only the `ID`, `Year` and `Conc` columns. Pipe the steps together with `%>%` (Chapter 10, *%>%*).
 
 ```{r top-five}
-all_data %>%
-  arrange(desc(Conc)) %>%
-  slice_head(n = 5) %>%
-  select(ID, Year, Conc)
+
 ```
 
 # Part 4 — Reshape
@@ -231,8 +228,7 @@ Starting from `all_data`, the four measurement columns you renamed in Section 5 
 ```{r pivot-longer}
 
 # long_data <-
-long_data <- all_data |>
-  pivot_longer()
+
 ```
 
 Now use `long_data` to draw histograms of `Score` with `facet_wrap()` so that each `Measure` gets its own panel (Chapter 4 and Chapter 7). Choose a sensible `binwidth`, add axis labels and a title, and use `theme_classic()`.

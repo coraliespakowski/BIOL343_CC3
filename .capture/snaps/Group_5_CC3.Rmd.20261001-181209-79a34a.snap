@@ -232,7 +232,11 @@ Starting from `all_data`, the four measurement columns you renamed in Section 5 
 
 # long_data <-
 long_data <- all_data |>
-  pivot_longer()
+  pivot_longer(
+    cols = c("Xdat", "Ydat"),
+    names_to = "Measurement",
+    values_to = "Value"
+  )
 ```
 
 Now use `long_data` to draw histograms of `Score` with `facet_wrap()` so that each `Measure` gets its own panel (Chapter 4 and Chapter 7). Choose a sensible `binwidth`, add axis labels and a title, and use `theme_classic()`.
