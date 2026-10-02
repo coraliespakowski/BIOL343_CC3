@@ -71,3 +71,4 @@
 {"chunk":null,"ts":"2026-10-02T18:53:01Z","pid":88799,"engine":"r","severity":"warning","render":false,"warning":"## Warning: \u001b[1m\u001b[22mRemoved 19 rows containing missing values or values outside the scale range\n(`geom_point()`)."}
 {"chunk":null,"ts":"2026-10-02T18:53:12Z","pid":88799,"engine":"r","severity":"warning","render":false,"warning":"## Warning: \u001b[1m\u001b[22mRemoved 63 rows containing non-finite outside the scale range (`stat_bin()`)."}
 {"chunk":null,"ts":"2026-10-02T18:53:24Z","pid":88799,"engine":"r","severity":"warning","render":false,"warning":"## Warning: \u001b[1m\u001b[22mRemoved 19 rows containing missing values or values outside the scale range\n(`geom_point()`)."}
+{"chunk":null,"ts":"2026-10-02T19:02:30Z","pid":88799,"engine":"r","severity":"warning","render":false,"warning":"## Warning: \u001b[1m\u001b[22mRemoved 24 rows containing missing values or values outside the scale\nrange (`geom_point()`)."}
